@@ -21,12 +21,12 @@
         Date.prototype.yyyymmdd = function() {
             var mm = this.getMonth() + 1; // getMonth() is zero-based
             var dd = this.getDate();
-
             return [this.getFullYear(),
                 (mm>9 ? '' : '0') + mm,
                 (dd>9 ? '' : '0') + dd
             ].join('-');
         };
+
         $('#valid_from').ready(()=>{
             dates = fetch("{{URL::route('reservations')}}?room={{$id}}").then(resp => {
                 resp=resp.json();
@@ -50,7 +50,6 @@
                     let datestr = $('#start').val().split('/');
                     let date = new Date(parseInt(datestr[2]),parseInt(datestr[0])-1,parseInt(datestr[1]));
                     let border_date = new Date(disableDates.filter((d,i)=>d>date.yyyymmdd())[0]);
-                    console.log(border_date);
                     if(!isNaN(date.getTime())) {
                         $('#end').datepicker('option', 'minDate', date);
                         $('#end').datepicker('option', 'maxDate', border_date);

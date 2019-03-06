@@ -21,4 +21,6 @@ Route::get('/create','HomeController@create_room')->name('create');
 Route::get('logout', 'Auth\LoginController@logout', function () {
     return abort(404);
 });
+Route::get('/addRoom','HomeController@addRoomForm')->name('addRoomForm');
+Route::post('/addRoom','HomeController@addRoom')->name('addRoom');
 Auth::routes();

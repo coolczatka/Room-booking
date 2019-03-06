@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{URL::route('book_act',$id)}}">
+        <form method="post" action="{{URL::route('addRoom')}}">
             @csrf
             <div class="form-group">
                 <label for="nr">Room number</label>

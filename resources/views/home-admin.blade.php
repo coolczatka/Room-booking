@@ -9,7 +9,7 @@
                 <div class="header-field" style="color:transparent;">b</div>
                 <div class="header-field" style="color:transparent;">c</div>
                 <div class="header-field">
-                    <label><input type="checkbox" id="cb"> Active only</label>
+                    <label><input type="checkbox" id="active_only"> Active only</label>
                 </div>
             </div>
             <div class="card-header">
@@ -19,7 +19,7 @@
                 <div class="header-field">Photo</div>
             <div id="wrapper">
             @foreach($rooms as $key => $room )
-            <div class="card">
+            <div @if(!$reservations[$key]->is_active) class="card da"@else class="card" @endif>
                 <div class="card-body">
                         <div class="card-body-row">
                             {{$users[$key]->name}}
@@ -41,6 +41,27 @@
             @endforeach
             </div>
         </div>
+    </div>
+        <script>
+            let chckd = $('#active_only').prop("checked");
+
+            $('#active_only').change(()=>{
+                dbld = document.getElementsByClassName('da');
+                if(!chckd) {
+                    for (let i = 0; i < dbld.length; i++) {
+                        dbld[i].style.display = "none";
+                    }
+                    chckd = true;
+                }
+                else{
+                    for (let i = 0; i < dbld.length; i++) {
+                        dbld[i].removeAttribute("style");
+                    }
+                    chckd = false;
+                }
+            })
+
+        </script>
     </div>
 </div>
 @endsection

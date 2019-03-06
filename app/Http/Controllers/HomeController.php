@@ -14,28 +14,18 @@ use App\Reservation;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index(Request $request)
     {
         if(!$request->ajax()) {
             $rooms = [];
             if (Auth::user()->hasRole('admin')) {
                 $users = [];
-                $reservations = Reservation::whereDate('valid_until', '>', Carbon::now())->where('is_active', True)->get();
+                $reservations = Reservation::whereDate('valid_until', '>', Carbon::now())->get();
                 foreach ($reservations as $reservation) {
                     $user = User::find($reservation->user_id);
                     $room = Room::find($reservation->room_id);
@@ -120,5 +110,14 @@ class HomeController extends Controller
         $reservation->is_active = 1;
         $reservation->save();
         return View('abort')->with('message','Your reservation has been created');
+    }
+    public function addRoomForm(){
+        return View('createRoomForm');
+    }
+    public function addRoom(Request $request){
+
+        Room::create(['nr'=>$request->nr, 'description'=>$request->description,
+            'picture'=>$request->picture]);
+        return View('abort')->with('message', 'Room has been created!');
     }
 }

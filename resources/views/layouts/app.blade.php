@@ -56,11 +56,13 @@
                                 </li>
                             @endif
                         @else
+                            @if(auth()->user()->hasRole('Admin'))
                             <li class="nav-item">
                                 <a href="{{URL::route('addRoomForm')}}" class="nav-link">
                                     Add Room
                                 </a>
                             </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a href="{{URL::route('home')}}" class="nav-link" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}

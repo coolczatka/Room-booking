@@ -5,7 +5,7 @@
                 @foreach($rooms->chunk(3) as $rooms_3)
                 <div class="row">
                     @foreach($rooms_3 as $room)
-                    <div class="col-md-4" style="text-align: center;">
+                    <div class="col-md-4" style="text-align: center;margin-bottom:10px;background-color:">
                         <img src="{{$room->picture}}" style="max-height: 100px;" alt="pic"/>
                         <h3>{{$room->nr}}</h3>
                         <p>{{$room->description}}</p>
